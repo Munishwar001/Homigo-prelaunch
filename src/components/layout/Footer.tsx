@@ -14,7 +14,7 @@ export function Footer() {
       />
 
       <div className="max-w-5xl mx-auto">
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-10 mb-10">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-8 sm:gap-10 mb-10">
 
           {/* Brand */}
           <div>
@@ -33,7 +33,7 @@ export function Footer() {
           </div>
 
           {/* Links */}
-          <nav className="flex gap-6 text-sm text-white/55" aria-label="Footer navigation">
+          <nav className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-white/55" aria-label="Footer navigation">
             {FOOTER_LINKS.map((link) => (
               <a
                 key={link.label}

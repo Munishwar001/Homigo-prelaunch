@@ -8,7 +8,7 @@ export function Problem() {
   const [ref, isVisible] = useInView();
 
   return (
-    <section ref={ref as React.RefObject<HTMLElement>} className="py-28 px-6 bg-white">
+    <section ref={ref as React.RefObject<HTMLElement>} className="py-16 md:py-28 px-4 sm:px-6 bg-white">
       <div className="max-w-5xl mx-auto">
 
         <SectionHeader
@@ -24,13 +24,13 @@ export function Problem() {
             return (
               <div
                 key={problem.title}
-                className={`card-lift glass rounded-2xl border-l-4 border-[#F59E0B] p-7 transition-all duration-700 ${
+                className={`card-lift glass rounded-2xl border-l-4 border-accent p-6 sm:p-7 transition-all duration-700 ${
                   isVisible ? "animate-fade-in-up" : "opacity-0"
                 }`}
                 style={{ animationDelay: `${0.1 + i * 0.15}s` }}
               >
-                <div className="w-11 h-11 rounded-xl bg-[#fef3c7] flex items-center justify-center mb-5">
-                  <Icon size={22} className="text-[#F59E0B]" strokeWidth={1.8} />
+                <div className="w-11 h-11 rounded-xl bg-accent-light flex items-center justify-center mb-4 sm:mb-5">
+                  <Icon size={22} className="text-accent" strokeWidth={1.8} />
                 </div>
                 <h3
                   className="text-lg font-bold text-[#1C1C1E] mb-2"
@@ -38,7 +38,7 @@ export function Problem() {
                 >
                   {problem.title}
                 </h3>
-                <p className="text-[#6B7280] text-sm leading-relaxed">{problem.description}</p>
+                <p className="text-muted text-sm leading-relaxed">{problem.description}</p>
               </div>
             );
           })}

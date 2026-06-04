@@ -11,7 +11,7 @@ export function Services() {
     <section
       id="services"
       ref={ref as React.RefObject<HTMLElement>}
-      className="py-28 px-6 bg-white"
+      className="py-16 md:py-28 px-4 sm:px-6 bg-white"
     >
       <div className="max-w-5xl mx-auto">
 
@@ -22,18 +22,18 @@ export function Services() {
           className={`mb-14 transition-all duration-700 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}
         />
 
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-5">
           {SERVICES.map((service, i) => {
             const Icon = service.icon;
             return (
               <div
                 key={service.title}
-                className={`card-lift group relative overflow-hidden bg-[#FAFAF7] rounded-2xl p-6 border border-transparent hover:border-[#0D9488]/15 cursor-default transition-all duration-700 ${
+                className={`card-lift group relative overflow-hidden bg-[#FAFAF7] rounded-2xl p-5 sm:p-6 border border-transparent hover:border-primary/15 cursor-default transition-all duration-700 ${
                   isVisible ? "animate-fade-in-up" : "opacity-0"
                 }`}
                 style={{ animationDelay: `${0.1 + i * 0.1}s` }}
               >
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl bg-gradient-to-br from-[#FAFAF7] to-[#e6f7f5]" />
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl bg-linear-to-br from-[#FAFAF7] to-primary-light" />
 
                 <div className="relative z-10">
                   <div
@@ -47,7 +47,7 @@ export function Services() {
                   >
                     {service.title}
                   </h3>
-                  <p className="text-[#6B7280] text-sm leading-relaxed">{service.description}</p>
+                  <p className="text-muted text-sm leading-relaxed">{service.description}</p>
                 </div>
               </div>
             );

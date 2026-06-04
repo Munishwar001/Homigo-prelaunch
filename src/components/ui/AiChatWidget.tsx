@@ -246,8 +246,9 @@ export function AiChatWidget() {
 
       {/* ── Chat panel (kept mounted for CSS transition) ─────────────────── */}
       <div
-        className="w-85 rounded-2xl overflow-hidden flex flex-col"
+        className="rounded-2xl overflow-hidden flex flex-col"
         style={{
+          width:         "min(340px, calc(100vw - 48px))",
           height:        448,
           boxShadow:     "0 24px 60px rgba(13,148,136,0.18), 0 8px 24px rgba(0,0,0,0.12)",
           opacity:       open ? 1 : 0,

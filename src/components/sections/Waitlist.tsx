@@ -25,13 +25,13 @@ export function Waitlist() {
     value: WaitlistFormData[K]
   ) => setForm((prev) => ({ ...prev, [key]: value }));
 
-  function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
     setSubmitted(true);
   }
 
   return (
-    <section id="waitlist" className="relative py-28 px-6 bg-[#FAFAF7] overflow-hidden">
+    <section id="waitlist" className="relative py-16 md:py-28 px-4 sm:px-6 bg-[#FAFAF7] overflow-hidden">
       {/* bg blobs */}
       <div className="absolute top-0 right-0 w-96 h-96 rounded-full pointer-events-none"
         style={{ background: "radial-gradient(circle, rgba(13,148,136,0.05) 0%, transparent 70%)" }} />
@@ -101,7 +101,7 @@ function FormCard({
 }: {
   form: WaitlistFormData;
   setField: <K extends keyof WaitlistFormData>(key: K, value: WaitlistFormData[K]) => void;
-  onSubmit: (e: React.FormEvent) => void;
+  onSubmit: (e: React.SyntheticEvent) => void;
 }) {
   return (
     <div className="glass rounded-2xl shadow-lg p-8 sm:p-10">

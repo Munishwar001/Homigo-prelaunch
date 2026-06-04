@@ -60,7 +60,7 @@ function PhoneMockup() {
   const timer = `0${Math.floor(secs / 60)}:${String(secs % 60).padStart(2, "0")}`;
 
   return (
-    <div className="relative mx-auto lg:mx-0" style={{ width: 268 }}>
+    <div className="relative mx-auto lg:mx-0" style={{ width: 268, flexShrink: 0 }}>
 
       {/* Glow behind phone */}
       <div
@@ -86,6 +86,7 @@ function PhoneMockup() {
       <div
         className="relative rounded-[2.5rem] overflow-hidden"
         style={{
+          width: 268,
           height: 520,
           background: "linear-gradient(180deg, #0d1f2d 0%, #0f2336 40%, #0a1a28 100%)",
           boxShadow: "0 40px 80px rgba(0,0,0,0.45), 0 16px 40px rgba(13,148,136,0.18), inset 0 0 0 1.5px rgba(255,255,255,0.07)",
@@ -262,7 +263,7 @@ export function Hero() {
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#FAFAF7] px-6 pt-20 pb-20">
+    <section className="relative min-h-screen flex items-center overflow-hidden bg-[#FAFAF7] px-4 sm:px-6 pt-20 pb-12 md:pb-20">
 
       {/* ── Background layers ── */}
       <div className="absolute inset-0 pointer-events-none">
@@ -311,7 +312,7 @@ export function Hero() {
 
             {/* Headline */}
             <h1
-              className="animate-fade-in-up opacity-0 delay-200 font-bold text-[#1C1C1E] leading-[1.07] tracking-tight mb-5 text-[2.6rem] sm:text-[3.25rem] lg:text-[3.8rem] xl:text-[4.5rem]"
+              className="animate-fade-in-up opacity-0 delay-200 font-bold text-[#1C1C1E] leading-[1.07] tracking-tight mb-5 text-[2rem] sm:text-[2.8rem] lg:text-[3.8rem] xl:text-[4.5rem]"
               style={{ fontFamily: "var(--font-fraunces)" }}
             >
               Book Any Home Service —{" "}
@@ -345,10 +346,10 @@ export function Hero() {
             </div>
 
             {/* CTA buttons */}
-            <div className="animate-fade-in-up opacity-0 delay-500 flex flex-wrap justify-center lg:justify-start gap-3 mb-10">
+            <div className="animate-fade-in-up opacity-0 delay-500 flex flex-col sm:flex-row justify-center lg:justify-start gap-3 mb-10">
               <button
                 onClick={() => scrollTo("waitlist")}
-                className="btn-primary inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-white font-semibold text-[15px] shadow-xl"
+                className="btn-primary inline-flex items-center justify-center gap-2 w-full sm:w-auto px-7 py-3.5 rounded-full text-white font-semibold text-[15px] shadow-xl"
               >
                 <Users size={16} />
                 Join the Waitlist
@@ -356,7 +357,7 @@ export function Hero() {
               </button>
               <button
                 onClick={() => scrollTo("how-it-works")}
-                className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full border-2 border-primary/25 text-primary font-semibold text-[15px] bg-white hover:border-primary/50 hover:bg-primary/5 transition-all duration-200"
+                className="inline-flex items-center justify-center gap-2 w-full sm:w-auto px-7 py-3.5 rounded-full border-2 border-primary/25 text-primary font-semibold text-[15px] bg-white hover:border-primary/50 hover:bg-primary/5 transition-all duration-200"
               >
                 How it works
                 <ArrowDown size={15} className="animate-bounce" />

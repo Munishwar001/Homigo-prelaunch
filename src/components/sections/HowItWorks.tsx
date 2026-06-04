@@ -33,7 +33,7 @@ export function HowItWorks() {
     <section
       id="how-it-works"
       ref={ref as React.RefObject<HTMLElement>}
-      className="py-28 px-6 bg-[#FAFAF7]"
+      className="py-16 md:py-28 px-4 sm:px-6 bg-[#FAFAF7]"
     >
       <div className="max-w-5xl mx-auto">
 
@@ -41,7 +41,7 @@ export function HowItWorks() {
           eyebrow="How it works"
           heading="Here's how Homigo works"
           subheading="Three steps. That's it."
-          className={`mb-20 transition-all duration-700 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}
+          className={`mb-12 md:mb-20 transition-all duration-700 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}
         />
 
         <div className="relative flex flex-col md:flex-row gap-10 md:gap-0 items-start">

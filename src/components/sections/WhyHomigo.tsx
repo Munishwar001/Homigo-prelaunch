@@ -10,7 +10,7 @@ export function WhyHomigo() {
   return (
     <section
       ref={ref as React.RefObject<HTMLElement>}
-      className="relative py-28 px-6 bg-[#0D9488] overflow-hidden"
+      className="relative py-16 md:py-28 px-4 sm:px-6 bg-primary overflow-hidden"
     >
       {/* Decorative blobs */}
       <div
