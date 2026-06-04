@@ -67,6 +67,12 @@ body {
   to   { opacity: 1; transform: scale(1);   }
 }
 
+/* voice waveform bar */
+@keyframes waveBar {
+  from { transform: scaleY(0.25); opacity: 0.6; }
+  to   { transform: scaleY(1);    opacity: 1;   }
+}
+
 /* chat message pop-in */
 @keyframes msgIn {
   from { opacity: 0; transform: translateY(10px) scale(0.96); }
