@@ -69,12 +69,19 @@ export const PROBLEMS: ProblemItem[] = [
 
 // ─── How It Works ─────────────────────────────────────────────────────────────
 
+export interface StepBubble {
+  text: string;
+  time: string;
+  type: "user" | "ai" | "confirm";
+}
+
 export interface Step {
   icon: LucideIcon;
   number: string;
   title: string;
   description: string;
   showChatBubble?: boolean;
+  bubble?: StepBubble;
 }
 
 export const STEPS: Step[] = [
@@ -85,6 +92,11 @@ export const STEPS: Step[] = [
     description:
       "Open Homigo or dial in. Tell us what you need — in Hindi, English, or your local language.",
     showChatBubble: true,
+    bubble: {
+      text: "Mere ghar mein kal subah paani ka pipe leak ho gaya hai, Sector 21 Chandigarh",
+      time: "9:14 AM",
+      type: "user" as const,
+    },
   },
   {
     icon: BrainCircuit,
@@ -92,6 +104,11 @@ export const STEPS: Step[] = [
     title: "AI Does Everything",
     description:
       "Our AI understands your request, finds vetted professionals nearby, and handles negotiation.",
+    bubble: {
+      text: "Got it! Finding verified plumbers near Sector 21, Chandigarh... 3 available today ✓",
+      time: "9:14 AM",
+      type: "ai" as const,
+    },
   },
   {
     icon: CheckCircle2,
@@ -99,6 +116,11 @@ export const STEPS: Step[] = [
     title: "You Get Confirmed",
     description:
       "Receive a booking confirmation with the pro's name, photo, and ETA. That's it.",
+    bubble: {
+      text: "Booking confirmed! Rajesh Kumar arrives at 10:30 AM. Rating: ⭐ 4.9",
+      time: "9:15 AM",
+      type: "confirm" as const,
+    },
   },
 ];
 
@@ -191,6 +213,14 @@ export const REASONS: ReasonItem[] = [
       "Most bookings confirmed within minutes. Many available same-day or next morning.",
   },
 ];
+
+// ─── Chat bubble messages (HowItWorks cycling animation) ─────────────────────
+
+export const CHAT_MESSAGES = [
+  "Mere ghar mein kal subah paani ka pipe leak ho gaya hai, Sector 21 Chandigarh",
+  "AC servis karwani hai aaj, Lajpat Nagar Delhi — koi mil sakta hai?",
+  "Bathroom ki tiles fix karwani hain, 2 ghante mein koi aa sakta hai kya?",
+] as const;
 
 // ─── Footer ───────────────────────────────────────────────────────────────────
 
