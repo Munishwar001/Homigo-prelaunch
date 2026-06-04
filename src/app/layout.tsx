@@ -1,20 +1,26 @@
 import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import { Fraunces, DM_Sans } from "next/font/google";
 import "./globals.css";
 
-const geist = Geist({
-  variable: "--font-geist-sans",
+const fraunces = Fraunces({
+  variable: "--font-fraunces",
+  subsets: ["latin"],
+  axes: ["opsz"],
+});
+
+const dmSans = DM_Sans({
+  variable: "--font-dm-sans",
   subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
-  title: "Homigo — Home Services, Simplified",
+  title: "Homigo — Book Home Services Just By Speaking",
   description:
-    "Homigo connects homeowners with vetted local professionals for any home service. Join the waitlist for early access.",
+    "Homigo is an AI-powered voice-based home services marketplace for Indian households. No searching. No calling around. No waiting. Just speak.",
   openGraph: {
-    title: "Homigo — Home Services, Simplified",
+    title: "Homigo — Book Home Services Just By Speaking",
     description:
-      "The smarter way to find trusted home service professionals near you.",
+      "AI-powered voice home services marketplace for Indian households. Plumbing, electrical, cleaning and more — just say the word.",
     type: "website",
   },
 };
@@ -25,8 +31,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geist.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-white text-slate-900">
+    <html lang="en" className={`${fraunces.variable} ${dmSans.variable} h-full antialiased`}>
+      <body className="min-h-full flex flex-col bg-[#FAFAF7] text-[#1C1C1E]">
         {children}
       </body>
     </html>

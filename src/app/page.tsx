@@ -1,19 +1,17 @@
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import HeroSection from "@/components/sections/HeroSection";
-import HowItWorksSection from "@/components/sections/HowItWorksSection";
-import FeaturesSection from "@/components/sections/FeaturesSection";
-import WaitlistSection from "@/components/sections/WaitlistSection";
+import { Navbar, Footer }                                          from "@/components/layout";
+import { Hero, Problem, HowItWorks, Services, WhyHomigo, Waitlist } from "@/components/sections";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <>
       <Navbar />
       <main className="flex-1">
-        <HeroSection />
-        <HowItWorksSection />
-        <FeaturesSection />
-        <WaitlistSection />
+        <Hero />
+        <Problem />
+        <HowItWorks />
+        <Services />
+        <WhyHomigo />
+        <Waitlist />
       </main>
       <Footer />
     </>
