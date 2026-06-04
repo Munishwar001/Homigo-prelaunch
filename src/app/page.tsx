@@ -1,6 +1,6 @@
 import { Navbar, Footer }                                          from "@/components/layout";
 import { Hero, Problem, HowItWorks, Services, WhyHomigo, Waitlist } from "@/components/sections";
-import { AiChatWidget }                                            from "@/components/ui";
+import { AiChatWidget, WaitlistPopup }                             from "@/components/ui";
 
 export default function HomePage() {
   return (
@@ -16,6 +16,7 @@ export default function HomePage() {
       </main>
       <Footer />
       <AiChatWidget />
+      <WaitlistPopup />
     </>
   );
 }
