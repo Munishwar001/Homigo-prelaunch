@@ -1,0 +1,94 @@
+import { google } from "googleapis";
+import { WaitlistEntry } from "./types";
+
+// Initialize Google Sheets API
+function getGoogleSheetsClient() {
+  const credentials = process.env.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS;
+  
+  if (!credentials) {
+    throw new Error("GOOGLE_SERVICE_ACCOUNT_CREDENTIALS environment variable is not set");
+  }
+
+  const auth = new google.auth.GoogleAuth({
+    credentials: JSON.parse(credentials),
+    scopes: ["https://www.googleapis.com/auth/spreadsheets"],
+  });
+
+  return google.sheets({ version: "v4", auth });
+}
+
+// Format date and time for Google Sheets
+function formatDateTime(isoString: string) {
+  const date = new Date(isoString);
+  const dateStr = date.toLocaleDateString("en-IN", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+  const timeStr = date.toLocaleTimeString("en-IN", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: true,
+  });
+  return { date: dateStr, time: timeStr };
+}
+
+// Add entry to Google Sheets
+export async function addToGoogleSheets(entry: WaitlistEntry): Promise<void> {
+  const spreadsheetId = process.env.GOOGLE_SHEETS_ID;
+
+  if (!spreadsheetId) {
+    throw new Error("GOOGLE_SHEETS_ID environment variable is not set");
+  }
+
+  const sheets = getGoogleSheetsClient();
+  const { date, time } = formatDateTime(entry.createdAt);
+
+  const values = [
+    [
+      entry.id,
+      entry.name,
+      entry.email,
+      entry.phone,
+      entry.city,
+      entry.role,
+      date,
+      time,
+      entry.createdAt,
+    ],
+  ];
+
+  await sheets.spreadsheets.values.append({
+    spreadsheetId,
+    range: "Sheet1!A:I", // Adjust sheet name if needed
+    valueInputOption: "RAW",
+    requestBody: {
+      values,
+    },
+  });
+}
+
+// Initialize the spreadsheet with headers (run once)
+export async function initializeSpreadsheet(): Promise<void> {
+  const spreadsheetId = process.env.GOOGLE_SHEETS_ID;
+
+  if (!spreadsheetId) {
+    throw new Error("GOOGLE_SHEETS_ID environment variable is not set");
+  }
+
+  const sheets = getGoogleSheetsClient();
+
+  const headers = [
+    ["ID", "Name", "Email", "Phone", "City", "Role", "Date", "Time", "ISO Timestamp"],
+  ];
+
+  await sheets.spreadsheets.values.update({
+    spreadsheetId,
+    range: "Sheet1!A1:I1",
+    valueInputOption: "RAW",
+    requestBody: {
+      values: headers,
+    },
+  });
+}

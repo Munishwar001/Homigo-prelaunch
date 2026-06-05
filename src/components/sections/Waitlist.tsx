@@ -3,7 +3,7 @@
 import { useState } from "react";
 import {
   Home, Wrench, Users, Lock,
-  ArrowRight, CheckCircle2, Phone, MapPin, User,
+  ArrowRight, CheckCircle2, Phone, MapPin, User, Mail,
 } from "lucide-react";
 import { SectionHeader } from "@/components/ui";
 import { WAITLIST_COUNT } from "@/constants";
@@ -11,6 +11,7 @@ import type { UserRole, WaitlistFormData } from "@/types";
 
 const INITIAL_FORM: WaitlistFormData = {
   name: "",
+  email: "",
   phone: "",
   city: "",
   role: "customer",
@@ -19,15 +20,38 @@ const INITIAL_FORM: WaitlistFormData = {
 export function Waitlist() {
   const [form, setForm]           = useState<WaitlistFormData>(INITIAL_FORM);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading]     = useState(false);
+  const [error, setError]         = useState("");
 
   const setField = <K extends keyof WaitlistFormData>(
     key: K,
     value: WaitlistFormData[K]
   ) => setForm((prev) => ({ ...prev, [key]: value }));
 
-  function handleSubmit(e: React.SyntheticEvent) {
+  async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
-    setSubmitted(true);
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json() as { success?: boolean; message?: string };
+
+      if (!res.ok || !data.success) {
+        setError(data.message ?? "Something went wrong. Please try again.");
+        return;
+      }
+
+      setSubmitted(true);
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -59,7 +83,7 @@ export function Waitlist() {
         {submitted ? (
           <SuccessCard city={form.city} />
         ) : (
-          <FormCard form={form} setField={setField} onSubmit={handleSubmit} />
+          <FormCard form={form} setField={setField} onSubmit={handleSubmit} loading={loading} error={error} />
         )}
       </div>
     </section>
@@ -98,10 +122,14 @@ function FormCard({
   form,
   setField,
   onSubmit,
+  loading,
+  error,
 }: {
   form: WaitlistFormData;
   setField: <K extends keyof WaitlistFormData>(key: K, value: WaitlistFormData[K]) => void;
   onSubmit: (e: React.SyntheticEvent) => void;
+  loading: boolean;
+  error: string;
 }) {
   return (
     <div className="glass rounded-2xl shadow-lg p-8 sm:p-10">
@@ -140,6 +168,23 @@ function FormCard({
             required
             value={form.name}
             onChange={(e) => setField("name", e.target.value)}
+            className={inputCls}
+          />
+        </InputField>
+
+        {/* Email */}
+        <InputField
+          id="wl-email"
+          label="Email Address"
+          icon={<Mail size={13} className="text-[#6B7280]" />}
+        >
+          <input
+            id="wl-email"
+            type="email"
+            placeholder="ravi@example.com"
+            required
+            value={form.email}
+            onChange={(e) => setField("email", e.target.value)}
             className={inputCls}
           />
         </InputField>
@@ -185,11 +230,18 @@ function FormCard({
           />
         </InputField>
 
+        {error && (
+          <p className="text-sm text-red-600 bg-red-50 border border-red-100 rounded-xl px-3 py-2">
+            {error}
+          </p>
+        )}
+
         <button
           type="submit"
-          className="btn-primary mt-2 h-12 rounded-xl text-white text-sm font-semibold flex items-center justify-center gap-2 shadow-md"
+          disabled={loading}
+          className="btn-primary mt-2 h-12 rounded-xl text-white text-sm font-semibold flex items-center justify-center gap-2 shadow-md disabled:opacity-70 disabled:cursor-not-allowed"
         >
-          Notify Me When Live
+          {loading ? "Joining..." : "Notify Me When Live"}
           <ArrowRight size={16} strokeWidth={2.5} />
         </button>
 

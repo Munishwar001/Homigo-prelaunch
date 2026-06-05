@@ -5,7 +5,13 @@ import { WaitlistResponse } from "@/lib/types";
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email } = body as { name?: string; email?: string };
+    const { name, email, phone, city, role } = body as {
+      name?: string;
+      email?: string;
+      phone?: string;
+      city?: string;
+      role?: "customer" | "provider";
+    };
 
     if (!name || typeof name !== "string" || name.trim().length < 2) {
       return NextResponse.json<WaitlistResponse>(
@@ -21,7 +27,34 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    addEntry(name.trim(), email.trim().toLowerCase());
+    if (!phone || typeof phone !== "string" || !/^\d{10}$/.test(phone.trim())) {
+      return NextResponse.json<WaitlistResponse>(
+        { success: false, message: "Please enter a valid 10-digit mobile number." },
+        { status: 400 }
+      );
+    }
+
+    if (!city || typeof city !== "string" || city.trim().length < 2) {
+      return NextResponse.json<WaitlistResponse>(
+        { success: false, message: "Please enter your city." },
+        { status: 400 }
+      );
+    }
+
+    if (role !== "customer" && role !== "provider") {
+      return NextResponse.json<WaitlistResponse>(
+        { success: false, message: "Please select whether you are a homeowner or service pro." },
+        { status: 400 }
+      );
+    }
+
+    await addEntry({
+      name: name.trim(),
+      email: email.trim().toLowerCase(),
+      phone: phone.trim(),
+      city: city.trim(),
+      role,
+    });
 
     return NextResponse.json<WaitlistResponse>({
       success: true,

@@ -4,6 +4,7 @@ export type UserRole = "customer" | "provider";
 
 export interface WaitlistFormData {
   name: string;
+  email: string;
   phone: string;
   city: string;
   role: UserRole;

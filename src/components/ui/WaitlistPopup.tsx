@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import {
   X, Users, Home, Wrench, Phone, MapPin,
-  User, ArrowRight, Lock, CheckCircle2, Sparkles,
+  User, ArrowRight, Lock, CheckCircle2, Sparkles, Mail,
 } from "lucide-react";
 import type { UserRole, WaitlistFormData } from "@/types";
 import { WAITLIST_COUNT } from "@/constants";
@@ -12,7 +12,7 @@ import { WAITLIST_COUNT } from "@/constants";
 
 const STORAGE_KEY = "homigo_popup_seen";
 
-const INITIAL: WaitlistFormData = { name: "", phone: "", city: "", role: "customer" };
+const INITIAL: WaitlistFormData = { name: "", email: "", phone: "", city: "", role: "customer" };
 
 const inputCls =
   "h-11 px-4 w-full rounded-xl border border-gray-200 bg-white text-[#1C1C1E] placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/25 focus:border-primary transition-all text-sm";
@@ -23,6 +23,8 @@ export function WaitlistPopup() {
   const [show, setShow]           = useState(false);
   const [form, setForm]           = useState<WaitlistFormData>(INITIAL);
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading]     = useState(false);
+  const [error, setError]         = useState("");
 
   const setField = <K extends keyof WaitlistFormData>(k: K, v: WaitlistFormData[K]) =>
     setForm(p => ({ ...p, [k]: v }));
@@ -38,11 +40,32 @@ export function WaitlistPopup() {
     setShow(false);
   }
 
-  function handleSubmit(e: React.SyntheticEvent) {
+  async function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
-    setSubmitted(true);
-    localStorage.setItem(STORAGE_KEY, "1");
-    setTimeout(() => setShow(false), 3200);
+    setLoading(true);
+    setError("");
+
+    try {
+      const res = await fetch("/api/waitlist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json() as { success?: boolean; message?: string };
+
+      if (!res.ok || !data.success) {
+        setError(data.message ?? "Something went wrong. Please try again.");
+        return;
+      }
+
+      setSubmitted(true);
+      localStorage.setItem(STORAGE_KEY, "1");
+      setTimeout(() => setShow(false), 3200);
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
   }
 
   if (!show) return null;
@@ -58,7 +81,7 @@ export function WaitlistPopup() {
       onClick={e => { if (e.target === e.currentTarget) close(); }}
     >
       <div
-        className="relative w-full max-w-md rounded-3xl overflow-hidden shadow-2xl"
+        className="relative w-full max-w-md max-h-[calc(100vh-32px)] rounded-3xl overflow-y-auto shadow-2xl"
         style={{ animation: "modalIn 0.38s cubic-bezier(0.34,1.3,0.64,1) forwards" }}
       >
         {/* ── Header ── */}
@@ -112,7 +135,7 @@ export function WaitlistPopup() {
           {submitted ? (
             <SuccessView city={form.city} />
           ) : (
-            <FormView form={form} setField={setField} onSubmit={handleSubmit} onSkip={close} />
+            <FormView form={form} setField={setField} onSubmit={handleSubmit} onSkip={close} loading={loading} error={error} />
           )}
         </div>
       </div>
@@ -152,11 +175,15 @@ function FormView({
   setField,
   onSubmit,
   onSkip,
+  loading,
+  error,
 }: {
   form: WaitlistFormData;
   setField: <K extends keyof WaitlistFormData>(k: K, v: WaitlistFormData[K]) => void;
   onSubmit: (e: React.SyntheticEvent) => void;
   onSkip: () => void;
+  loading: boolean;
+  error: string;
 }) {
   return (
     <form onSubmit={onSubmit} className="flex flex-col gap-4">
@@ -193,6 +220,22 @@ function FormView({
           required
           value={form.name}
           onChange={e => setField("name", e.target.value)}
+          className={inputCls}
+        />
+      </div>
+
+      {/* Email */}
+      <div className="flex flex-col gap-1">
+        <label className="text-[12px] font-medium text-[#1C1C1E] flex items-center gap-1.5">
+          <Mail size={12} className="text-gray-400" />
+          Email Address
+        </label>
+        <input
+          type="email"
+          placeholder="ravi@example.com"
+          required
+          value={form.email}
+          onChange={e => setField("email", e.target.value)}
           className={inputCls}
         />
       </div>
@@ -236,12 +279,19 @@ function FormView({
         />
       </div>
 
+      {error && (
+        <p className="text-[12px] text-red-600 bg-red-50 border border-red-100 rounded-xl px-3 py-2">
+          {error}
+        </p>
+      )}
+
       {/* Submit */}
       <button
         type="submit"
-        className="btn-primary h-12 rounded-xl text-white text-sm font-semibold flex items-center justify-center gap-2 shadow-md mt-1"
+        disabled={loading}
+        className="btn-primary h-12 rounded-xl text-white text-sm font-semibold flex items-center justify-center gap-2 shadow-md mt-1 disabled:opacity-70 disabled:cursor-not-allowed"
       >
-        Notify Me When Live
+        {loading ? "Joining..." : "Notify Me When Live"}
         <ArrowRight size={16} strokeWidth={2.5} />
       </button>
 
