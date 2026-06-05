@@ -80,8 +80,11 @@ export async function POST(req: NextRequest) {
       message: errorMessage,
       stack: errorStack,
       env: {
+        nodeEnv: process.env.NODE_ENV,
         hasGoogleSheetsId: !!process.env.GOOGLE_SHEETS_ID,
         hasGoogleCredentials: !!process.env.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS,
+        sheetsIdPreview: process.env.GOOGLE_SHEETS_ID?.substring(0, 20) + "...",
+        credentialsPreview: process.env.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS?.substring(0, 30) + "...",
       }
     });
 

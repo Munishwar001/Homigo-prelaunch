@@ -1,62 +1,51 @@
-import fs from "fs";
-import path from "path";
 import { WaitlistEntry } from "./types";
 import { addToGoogleSheets } from "./googleSheets";
-
-const DATA_FILE = path.join(process.cwd(), "data", "waitlist.json");
-
-function ensureDataFile() {
-  const dir = path.dirname(DATA_FILE);
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-  if (!fs.existsSync(DATA_FILE)) fs.writeFileSync(DATA_FILE, "[]", "utf-8");
-}
-
-export function readEntries(): WaitlistEntry[] {
-  ensureDataFile();
-  const raw = fs.readFileSync(DATA_FILE, "utf-8");
-  return JSON.parse(raw) as WaitlistEntry[];
-}
 
 type WaitlistInput = Omit<WaitlistEntry, "id" | "createdAt">;
 
 export async function addEntry(input: WaitlistInput): Promise<WaitlistEntry> {
-  const entries = readEntries();
-  const existing = entries.find((e) => e.email.toLowerCase() === input.email.toLowerCase());
-  if (existing) throw new Error("already_registered");
-
   const entry: WaitlistEntry = {
     id: crypto.randomUUID(),
     ...input,
     createdAt: new Date().toISOString(),
   };
 
-  // Save to local JSON first (primary storage - always works)
-  entries.push(entry);
-  fs.writeFileSync(DATA_FILE, JSON.stringify(entries, null, 2), "utf-8");
-  console.log("✅ Entry saved to local JSON file");
-
-  // Try to add to Google Sheets (optional, non-blocking)
+  // Save to Google Sheets (primary storage for production)
   try {
-    // Only attempt if environment variables are configured
+    // Check if environment variables are configured
     const hasGoogleConfig = 
       process.env.GOOGLE_SHEETS_ID && 
       process.env.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS;
 
-    if (hasGoogleConfig) {
-      console.log("📊 Attempting to sync to Google Sheets...");
-      await addToGoogleSheets(entry);
-      console.log("✅ Synced to Google Sheets successfully");
-    } else {
-      console.log("⚠️  Google Sheets not configured, using local storage only");
+    if (!hasGoogleConfig) {
+      console.error("❌ Google Sheets not configured");
+      throw new Error("Google Sheets configuration missing. Please add GOOGLE_SHEETS_ID and GOOGLE_SERVICE_ACCOUNT_CREDENTIALS environment variables.");
     }
+
+    console.log("📊 Saving to Google Sheets...");
+    await addToGoogleSheets(entry);
+    console.log("✅ Saved to Google Sheets successfully");
   } catch (error) {
-    // Log error but don't fail the request
-    console.error("⚠️  Failed to sync to Google Sheets (local backup saved):", error);
+    console.error("❌ Failed to save to Google Sheets:", error);
     if (error instanceof Error) {
       console.error("Details:", error.message);
     }
-    // Continue - local storage is primary, Sheets is just a backup
+    // Re-throw to fail the request if Google Sheets fails
+    throw error;
   }
 
   return entry;
+}
+
+// Read entries from Google Sheets (for duplicate check)
+export async function checkDuplicateEmail(email: string): Promise<boolean> {
+  try {
+    // For now, we'll skip duplicate check in production
+    // You can implement Google Sheets read later if needed
+    console.log("⚠️ Duplicate check skipped (not implemented for Google Sheets)");
+    return false;
+  } catch (error) {
+    console.error("Error checking duplicate:", error);
+    return false;
+  }
 }
