@@ -30,15 +30,32 @@ export async function addEntry(input: WaitlistInput): Promise<WaitlistEntry> {
     createdAt: new Date().toISOString(),
   };
 
+  // Save to local JSON first (primary storage - always works)
   entries.push(entry);
   fs.writeFileSync(DATA_FILE, JSON.stringify(entries, null, 2), "utf-8");
+  console.log("✅ Entry saved to local JSON file");
 
-  // Add to Google Sheets (non-blocking, log errors)
+  // Try to add to Google Sheets (optional, non-blocking)
   try {
-    await addToGoogleSheets(entry);
+    // Only attempt if environment variables are configured
+    const hasGoogleConfig = 
+      process.env.GOOGLE_SHEETS_ID && 
+      process.env.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS;
+
+    if (hasGoogleConfig) {
+      console.log("📊 Attempting to sync to Google Sheets...");
+      await addToGoogleSheets(entry);
+      console.log("✅ Synced to Google Sheets successfully");
+    } else {
+      console.log("⚠️  Google Sheets not configured, using local storage only");
+    }
   } catch (error) {
-    console.error("Failed to add entry to Google Sheets:", error);
-    // Continue even if Google Sheets fails - local storage is primary
+    // Log error but don't fail the request
+    console.error("⚠️  Failed to sync to Google Sheets (local backup saved):", error);
+    if (error instanceof Error) {
+      console.error("Details:", error.message);
+    }
+    // Continue - local storage is primary, Sheets is just a backup
   }
 
   return entry;

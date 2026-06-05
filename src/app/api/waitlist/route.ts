@@ -61,6 +61,8 @@ export async function POST(req: NextRequest) {
       message: `Welcome, ${name.trim().split(" ")[0]}! We'll be in touch with early access details soon.`,
     });
   } catch (err) {
+    console.error("❌ Waitlist API Error:", err);
+    
     if (err instanceof Error && err.message === "already_registered") {
       return NextResponse.json<WaitlistResponse>(
         { success: false, message: "This email is already on the waitlist." },
@@ -68,8 +70,28 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    // Return detailed error in development, generic in production
+    const isDev = process.env.NODE_ENV === "development";
+    const errorMessage = err instanceof Error ? err.message : "Unknown error";
+    const errorStack = err instanceof Error ? err.stack : undefined;
+
+    // Log to console
+    console.error("Error details:", {
+      message: errorMessage,
+      stack: errorStack,
+      env: {
+        hasGoogleSheetsId: !!process.env.GOOGLE_SHEETS_ID,
+        hasGoogleCredentials: !!process.env.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS,
+      }
+    });
+
     return NextResponse.json<WaitlistResponse>(
-      { success: false, message: "Something went wrong. Please try again." },
+      { 
+        success: false, 
+        message: isDev 
+          ? `Error: ${errorMessage}` 
+          : "Something went wrong. Please try again.",
+      },
       { status: 500 }
     );
   }
