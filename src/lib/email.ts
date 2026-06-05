@@ -1,12 +1,8 @@
 import { Resend } from "resend";
 import { WaitlistEntry } from "./types";
 
-// Initialize Resend
-const resend = new Resend(process.env.RESEND_API_KEY);
-
-// Email configuration
-const FROM_EMAIL = process.env.EMAIL_FROM || "onboarding@resend.dev";
-const ADMIN_EMAIL = process.env.ADMIN_EMAIL || "your@email.com";
+const FROM_EMAIL = () => process.env.EMAIL_FROM || "onboarding@resend.dev";
+const ADMIN_EMAIL = () => process.env.ADMIN_EMAIL || "your@email.com";
 
 // Send confirmation email to user
 export async function sendUserConfirmationEmail(entry: WaitlistEntry): Promise<void> {
@@ -16,10 +12,11 @@ export async function sendUserConfirmationEmail(entry: WaitlistEntry): Promise<v
       return;
     }
 
+    const resend = new Resend(process.env.RESEND_API_KEY);
     const firstName = entry.name.split(" ")[0];
 
     await resend.emails.send({
-      from: FROM_EMAIL,
+      from: FROM_EMAIL(),
       to: entry.email,
       subject: "You're on the Homizy waitlist",
       html: getUserEmailTemplate(entry, firstName),
@@ -45,14 +42,16 @@ export async function sendAdminNotificationEmail(entry: WaitlistEntry): Promise<
       return;
     }
 
+    const resend = new Resend(process.env.RESEND_API_KEY);
+
     await resend.emails.send({
-      from: FROM_EMAIL,
-      to: ADMIN_EMAIL,
+      from: FROM_EMAIL(),
+      to: ADMIN_EMAIL(),
       subject: `New signup: ${entry.name} (${entry.role === "customer" ? "Homeowner" : "Service Pro"}) — ${entry.city}`,
       html: getAdminEmailTemplate(entry),
     });
 
-    console.log(`✅ Admin notification sent to: ${ADMIN_EMAIL}`);
+    console.log(`✅ Admin notification sent to: ${ADMIN_EMAIL()}`);
   } catch (error) {
     console.error("❌ Failed to send admin notification email:", error);
     // Don't throw - email failure shouldn't block signup
