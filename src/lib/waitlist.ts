@@ -1,9 +1,17 @@
 import { WaitlistEntry } from "./types";
-import { addToGoogleSheets } from "./googleSheets";
+import { addToGoogleSheets, checkDuplicateEmail } from "./googleSheets";
+import { rateLimiter } from "./rateLimiter";
 
 type WaitlistInput = Omit<WaitlistEntry, "id" | "createdAt">;
 
 export async function addEntry(input: WaitlistInput): Promise<WaitlistEntry> {
+  // Check for duplicate email in Google Sheets
+  const isDuplicate = await checkDuplicateEmail(input.email);
+  
+  if (isDuplicate || rateLimiter.isEmailCached(input.email)) {
+    throw new Error("already_registered");
+  }
+
   const entry: WaitlistEntry = {
     id: crypto.randomUUID(),
     ...input,
@@ -25,6 +33,9 @@ export async function addEntry(input: WaitlistInput): Promise<WaitlistEntry> {
     console.log("📊 Saving to Google Sheets...");
     await addToGoogleSheets(entry);
     console.log("✅ Saved to Google Sheets successfully");
+    
+    // Cache the email to prevent duplicate checks for some time
+    rateLimiter.cacheEmail(input.email);
   } catch (error) {
     console.error("❌ Failed to save to Google Sheets:", error);
     if (error instanceof Error) {
@@ -35,17 +46,4 @@ export async function addEntry(input: WaitlistInput): Promise<WaitlistEntry> {
   }
 
   return entry;
-}
-
-// Read entries from Google Sheets (for duplicate check)
-export async function checkDuplicateEmail(email: string): Promise<boolean> {
-  try {
-    // For now, we'll skip duplicate check in production
-    // You can implement Google Sheets read later if needed
-    console.log("⚠️ Duplicate check skipped (not implemented for Google Sheets)");
-    return false;
-  } catch (error) {
-    console.error("Error checking duplicate:", error);
-    return false;
-  }
 }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, DM_Sans } from "next/font/google";
+import { Analytics } from "@vercel/analytics/next";
 import "./globals.css";
 
 const fraunces = Fraunces({
@@ -34,6 +35,7 @@ export default function RootLayout({
     <html lang="en" className={`${fraunces.variable} ${dmSans.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col bg-[#FAFAF7] text-[#1C1C1E]">
         {children}
+        <Analytics />
       </body>
     </html>
   );

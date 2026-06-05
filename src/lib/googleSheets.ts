@@ -34,6 +34,52 @@ function formatDateTime(isoString: string) {
   return { date: dateStr, time: timeStr };
 }
 
+// Check if email already exists in Google Sheets
+export async function checkDuplicateEmail(email: string): Promise<boolean> {
+  try {
+    const spreadsheetId = process.env.GOOGLE_SHEETS_ID;
+
+    if (!spreadsheetId) {
+      console.warn("⚠️  GOOGLE_SHEETS_ID not set, skipping duplicate check");
+      return false;
+    }
+
+    console.log("🔍 Checking for duplicate email:", email.toLowerCase());
+
+    const sheets = getGoogleSheetsClient();
+
+    // Read all emails from column C (Email column)
+    const response = await sheets.spreadsheets.values.get({
+      spreadsheetId,
+      range: "Sheet1!C:C", // Column C contains emails
+    });
+
+    const values = response.data.values;
+    
+    if (!values || values.length === 0) {
+      console.log("✅ No existing emails found");
+      return false;
+    }
+
+    // Check if email exists (case-insensitive)
+    const emailExists = values.some(
+      (row) => row[0]?.toLowerCase() === email.toLowerCase()
+    );
+
+    if (emailExists) {
+      console.log("⚠️  Duplicate email found:", email);
+      return true;
+    }
+
+    console.log("✅ Email is unique");
+    return false;
+  } catch (error) {
+    console.error("❌ Error checking duplicate email:", error);
+    // If check fails, allow the request (fail open)
+    return false;
+  }
+}
+
 // Add entry to Google Sheets
 export async function addToGoogleSheets(entry: WaitlistEntry): Promise<void> {
   try {

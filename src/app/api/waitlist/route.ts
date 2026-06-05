@@ -1,9 +1,39 @@
 import { NextRequest, NextResponse } from "next/server";
 import { addEntry } from "@/lib/waitlist";
 import { WaitlistResponse } from "@/lib/types";
+import { rateLimiter } from "@/lib/rateLimiter";
+
+// Helper to get client IP
+function getClientIp(req: NextRequest): string {
+  return (
+    req.headers.get("x-forwarded-for")?.split(",")[0] ||
+    req.headers.get("x-real-ip") ||
+    "unknown"
+  );
+}
 
 export async function POST(req: NextRequest) {
   try {
+    // Rate limiting check
+    const clientIp = getClientIp(req);
+    const rateLimit = rateLimiter.checkRateLimit(clientIp);
+
+    if (!rateLimit.allowed) {
+      console.warn(`⚠️  Rate limit exceeded for IP: ${clientIp}`);
+      return NextResponse.json<WaitlistResponse>(
+        {
+          success: false,
+          message: `Too many requests. Please try again in ${rateLimit.retryAfter} seconds.`,
+        },
+        {
+          status: 429,
+          headers: {
+            "Retry-After": rateLimit.retryAfter?.toString() || "900",
+          },
+        }
+      );
+    }
+
     const body = await req.json();
     const { name, email, phone, city, role } = body as {
       name?: string;
@@ -55,6 +85,8 @@ export async function POST(req: NextRequest) {
       city: city.trim(),
       role,
     });
+
+    console.log(`✅ Waitlist entry added: ${email} from ${clientIp}`);
 
     return NextResponse.json<WaitlistResponse>({
       success: true,
