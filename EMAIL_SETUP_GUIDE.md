@@ -42,7 +42,7 @@
 
 1. Go to: https://resend.com/api-keys
 2. Click **"Create API Key"**
-3. Name: `Homigo Waitlist`
+3. Name: `Homizy Waitlist`
 4. Permission: **"Sending access"**
 5. Click **"Add"**
 6. **Copy the API key** (starts with `re_`)
@@ -80,14 +80,14 @@ ADMIN_EMAIL=your@email.com
 
 ### Step 4: (Optional) Use Custom Domain
 
-**To send from your own domain (e.g., hello@homigo.in):**
+**To send from your own domain (e.g., hello@homizy.in):**
 
 1. Go to: https://resend.com/domains
 2. Click **"Add Domain"**
-3. Enter: `homigo.in` (or your domain)
+3. Enter: `homizy.in` (or your domain)
 4. Add the DNS records shown (SPF, DKIM, DMARC)
 5. Wait for verification (~10 minutes)
-6. Update `EMAIL_FROM` to `hello@homigo.in`
+6. Update `EMAIL_FROM` to `hello@homizy.in`
 
 **Benefits:**
 - ✅ Professional sender address
@@ -109,15 +109,15 @@ ADMIN_EMAIL=your@email.com
 
 **Preview:**
 ```
-Subject: 🎉 Welcome to Homigo Waitlist!
+Subject: 🎉 Welcome to Homizy Waitlist!
 
 Hi Rajesh,
 
-Thank you for joining Homigo as a homeowner looking for 
+Thank you for joining Homizy as a homeowner looking for 
 reliable services! We're excited to have you on our waitlist.
 
 What happens next?
-We'll notify you as soon as Homigo launches in Mumbai...
+We'll notify you as soon as Homizy launches in Mumbai...
 ```
 
 ### Admin Notification Email

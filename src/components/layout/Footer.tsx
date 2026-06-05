@@ -26,7 +26,7 @@ export function Footer() {
                 className="text-xl font-bold text-white"
                 style={{ fontFamily: "var(--font-fraunces)" }}
               >
-                Homi<span className="text-[#0D9488]">go</span>
+                Homi<span className="text-[#0D9488]">zy</span>
               </span>
             </div>
             <p className="text-white/45 text-sm">Your home, one call away.</p>
@@ -70,7 +70,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-white/8 pt-7 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-white/35">
-          <span>&copy; {new Date().getFullYear()} Homigo. All rights reserved.</span>
+          <span>&copy; {new Date().getFullYear()} Homizy. All rights reserved.</span>
           <span>Made with ❤️ in India</span>
         </div>
       </div>

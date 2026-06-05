@@ -4,7 +4,7 @@
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    Homigo Waitlist Form                      │
+│                    Homizy Waitlist Form                      │
 │                                                              │
 │  [Name] [Email] [Phone] [City] [Role: Customer/Provider]   │
 └───────────────────────┬─────────────────────────────────────┘
@@ -248,4 +248,4 @@ Git Repository             Vercel Build
 
 ---
 
-This diagram provides a visual reference for understanding how the Google Sheets integration works within your Homigo waitlist system.
+This diagram provides a visual reference for understanding how the Google Sheets integration works within your Homizy waitlist system.

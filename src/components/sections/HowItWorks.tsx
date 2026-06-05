@@ -39,7 +39,7 @@ export function HowItWorks() {
 
         <SectionHeader
           eyebrow="How it works"
-          heading="Here's how Homigo works"
+          heading="Here's how Homizy works"
           subheading="Three steps. That's it."
           className={`mb-12 md:mb-20 transition-all duration-700 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}
         />
@@ -155,7 +155,7 @@ function StepChatBubble({
         ) : (
           <span className="text-[10px] font-semibold text-[#6B7280] uppercase tracking-wide flex items-center gap-1">
             <BotMessageSquare size={10} />
-            Homigo AI
+            Homizy AI
           </span>
         )}
       </div>

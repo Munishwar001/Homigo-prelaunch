@@ -90,7 +90,7 @@ export const STEPS: Step[] = [
     number: "01",
     title: "You Call or Tap",
     description:
-      "Open Homigo or dial in. Tell us what you need — in Hindi, English, or your local language.",
+      "Open Homizy or dial in. Tell us what you need — in Hindi, English, or your local language.",
     showChatBubble: true,
     bubble: {
       text: "Mere ghar mein kal subah paani ka pipe leak ho gaya hai, Sector 21 Chandigarh",
@@ -179,7 +179,7 @@ export const SERVICES: ServiceItem[] = [
   },
 ];
 
-// ─── Why Homigo ───────────────────────────────────────────────────────────────
+// ─── Why Homizy ───────────────────────────────────────────────────────────────
 
 export interface ReasonItem {
   icon: LucideIcon;

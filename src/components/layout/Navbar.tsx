@@ -33,7 +33,7 @@ export function Navbar() {
             className="text-xl font-bold text-[#1C1C1E]"
             style={{ fontFamily: "var(--font-fraunces)" }}
           >
-            Homi<span className="text-[#0D9488]">go</span>
+            Homi<span className="text-[#0D9488]">zy</span>
           </span>
         </a>
 

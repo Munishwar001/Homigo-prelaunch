@@ -111,7 +111,7 @@ function PhoneMockup() {
           </span>
         </div>
 
-        {/* Homigo avatar + info */}
+        {/* Homizy avatar + info */}
         <div className="flex flex-col items-center gap-2 mt-4">
           {/* Avatar with pulse rings */}
           <div className="relative">
@@ -126,7 +126,7 @@ function PhoneMockup() {
           </div>
 
           <div className="text-center">
-            <p className="text-white text-base font-bold leading-none">Homigo</p>
+            <p className="text-white text-base font-bold leading-none">Homizy</p>
             <p className="text-white/50 text-[10px] mt-0.5">AI Home Services</p>
           </div>
 
@@ -177,7 +177,7 @@ function PhoneMockup() {
           {/* Step 2 — AI voice response */}
           {step === 2 && (
             <div className="flex flex-col gap-2.5 w-full chat-msg-in">
-              <p className="text-white/40 text-[9px] uppercase tracking-widest text-center">Homigo says…</p>
+              <p className="text-white/40 text-[9px] uppercase tracking-widest text-center">Homizy says…</p>
               <div
                 className="rounded-2xl px-3.5 py-3 w-full"
                 style={{ background: "rgba(13,148,136,0.2)", border: "1px solid rgba(13,148,136,0.35)" }}
@@ -322,7 +322,7 @@ export function Hero() {
 
             {/* Sub-headline */}
             <p className="animate-fade-in-up opacity-0 delay-300 text-lg sm:text-xl text-[#6B7280] max-w-xl mb-8 leading-relaxed">
-              Speak in Hindi, English, or your local language. Homigo's AI finds
+              Speak in Hindi, English, or your local language. Homizy's AI finds
               the right verified professional near you and confirms the booking in
               minutes — no apps, no searching, no waiting.
             </p>

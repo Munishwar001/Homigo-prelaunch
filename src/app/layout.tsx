@@ -16,11 +16,11 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Homigo — Book Home Services Just By Speaking",
+  title: "Homizy — Book Home Services Just By Speaking",
   description:
-    "Homigo is an AI-powered voice-based home services marketplace for Indian households. No searching. No calling around. No waiting. Just speak.",
+    "Homizy is an AI-powered voice-based home services marketplace for Indian households. No searching. No calling around. No waiting. Just speak.",
   openGraph: {
-    title: "Homigo — Book Home Services Just By Speaking",
+    title: "Homizy — Book Home Services Just By Speaking",
     description:
       "AI-powered voice home services marketplace for Indian households. Plumbing, electrical, cleaning and more — just say the word.",
     type: "website",

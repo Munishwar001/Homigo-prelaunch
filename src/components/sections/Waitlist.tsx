@@ -75,7 +75,7 @@ export function Waitlist() {
 
         <SectionHeader
           eyebrow="Early Access"
-          heading="Homigo is launching soon in your city"
+          heading="Homizy is launching soon in your city"
           subheading="Be the first to know when we go live near you."
           className="mb-10"
         />
@@ -107,7 +107,7 @@ function SuccessCard({ city }: { city: string }) {
         You&apos;re on the list! 🎉
       </h3>
       <p className="text-[#6B7280] leading-relaxed mb-4">
-        We&apos;ll reach out when Homigo goes live in{" "}
+        We&apos;ll reach out when Homizy goes live in{" "}
         <span className="font-semibold text-[#0D9488]">{city || "your city"}</span>.
       </p>
       <p className="inline-flex items-center gap-1.5 text-sm text-[#6B7280]">

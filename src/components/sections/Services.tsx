@@ -17,7 +17,7 @@ export function Services() {
 
         <SectionHeader
           eyebrow="Services"
-          heading="What can Homigo help with?"
+          heading="What can Homizy help with?"
           subheading="From a dripping tap to a full deep clean — we've got it covered."
           className={`mb-14 transition-all duration-700 ${isVisible ? "animate-fade-in-up" : "opacity-0"}`}
         />

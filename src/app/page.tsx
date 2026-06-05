@@ -1,5 +1,5 @@
 import { Navbar, Footer }                                          from "@/components/layout";
-import { Hero, Problem, HowItWorks, Services, WhyHomigo, Waitlist } from "@/components/sections";
+import { Hero, Problem, HowItWorks, Services, WhyHomizy, Waitlist } from "@/components/sections";
 import { AiChatWidget, WaitlistPopup }                             from "@/components/ui";
 
 export default function HomePage() {
@@ -11,7 +11,7 @@ export default function HomePage() {
         <Problem />
         <HowItWorks />
         <Services />
-        <WhyHomigo />
+        <WhyHomizy />
         <Waitlist />
       </main>
       <Footer />

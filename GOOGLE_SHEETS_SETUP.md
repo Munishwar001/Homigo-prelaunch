@@ -1,6 +1,6 @@
 # Google Sheets Waitlist Integration Setup
 
-This guide will help you set up Google Sheets integration for your Homigo waitlist.
+This guide will help you set up Google Sheets integration for your Homizy waitlist.
 
 ## Prerequisites
 
@@ -11,7 +11,7 @@ This guide will help you set up Google Sheets integration for your Homigo waitli
 
 1. Go to [Google Sheets](https://sheets.google.com)
 2. Create a new spreadsheet
-3. Name it something like "Homigo Waitlist"
+3. Name it something like "Homizy Waitlist"
 4. Copy the **Spreadsheet ID** from the URL:
    ```
    https://docs.google.com/spreadsheets/d/SPREADSHEET_ID_HERE/edit

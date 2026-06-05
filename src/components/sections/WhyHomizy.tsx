@@ -4,7 +4,7 @@ import { useInView } from "@/hooks/useInView";
 import { SectionHeader } from "@/components/ui";
 import { REASONS } from "@/constants";
 
-export function WhyHomigo() {
+export function WhyHomizy() {
   const [ref, isVisible] = useInView();
 
   return (
@@ -26,8 +26,8 @@ export function WhyHomigo() {
       <div className="relative z-10 max-w-5xl mx-auto">
 
         <SectionHeader
-          eyebrow="Why Homigo"
-          heading="Why thousands will choose Homigo"
+          eyebrow="Why Homizy"
+          heading="Why thousands will choose Homizy"
           subheading="Built ground-up for Indian households, by people who understand them."
           headingColor="white"
           subheadingColor="white"
@@ -70,4 +70,4 @@ export function WhyHomigo() {
   );
 }
 
-export default WhyHomigo;
+export default WhyHomizy;

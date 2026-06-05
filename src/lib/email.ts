@@ -21,7 +21,7 @@ export async function sendUserConfirmationEmail(entry: WaitlistEntry): Promise<v
     await resend.emails.send({
       from: FROM_EMAIL,
       to: entry.email,
-      subject: "You're on the Homigo waitlist",
+      subject: "You're on the Homizy waitlist",
       html: getUserEmailTemplate(entry, firstName),
     });
 
@@ -103,14 +103,14 @@ function getUserEmailTemplate(entry: WaitlistEntry, firstName: string): string {
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>You're on the Homigo waitlist</title>
+  <title>You're on the Homizy waitlist</title>
   <!--[if mso]><noscript><xml><o:OfficeDocumentSettings><o:PixelsPerInch>96</o:PixelsPerInch></o:OfficeDocumentSettings></xml></noscript><![endif]-->
 </head>
 <body style="margin: 0; padding: 0; background-color: #f4f6f8; -webkit-font-smoothing: antialiased;">
 
   <!-- Preheader (hidden preview text) -->
   <div style="display: none; max-height: 0; overflow: hidden; color: transparent;">
-    Hi ${firstName}, you're in. We'll let you know the moment Homigo goes live in ${entry.city}.
+    Hi ${firstName}, you're in. We'll let you know the moment Homizy goes live in ${entry.city}.
     &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;
   </div>
 
@@ -132,7 +132,7 @@ function getUserEmailTemplate(entry: WaitlistEntry, firstName: string): string {
               <table role="presentation" cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="background-color: #0D9488; border-radius: 8px; padding: 6px 14px;">
-                    <span style="color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 18px; font-weight: 700; letter-spacing: -0.3px;">Homigo</span>
+                    <span style="color: #ffffff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 18px; font-weight: 700; letter-spacing: -0.3px;">Homizy</span>
                   </td>
                 </tr>
               </table>
@@ -146,7 +146,7 @@ function getUserEmailTemplate(entry: WaitlistEntry, firstName: string): string {
                 You're on the list, ${firstName}.
               </h1>
               <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 16px; color: #4b5563; line-height: 1.65;">
-                Thanks for signing up as ${isCustomer ? "a homeowner" : "a service professional"}. We'll send you a direct invite the moment Homigo goes live in <strong style="color: #111827;">${entry.city}</strong> — no spam, just the real launch email.
+                Thanks for signing up as ${isCustomer ? "a homeowner" : "a service professional"}. We'll send you a direct invite the moment Homizy goes live in <strong style="color: #111827;">${entry.city}</strong> — no spam, just the real launch email.
               </p>
             </td>
           </tr>
@@ -162,7 +162,7 @@ function getUserEmailTemplate(entry: WaitlistEntry, firstName: string): string {
           <tr>
             <td style="padding: 28px 48px 0;">
               <p style="margin: 0 0 18px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 11px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px;">
-                ${isCustomer ? "What Homigo does for you" : "Why pros choose Homigo"}
+                ${isCustomer ? "What Homizy does for you" : "Why pros choose Homizy"}
               </p>
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                 ${featureRows}
@@ -176,8 +176,8 @@ function getUserEmailTemplate(entry: WaitlistEntry, firstName: string): string {
               <table role="presentation" cellpadding="0" cellspacing="0">
                 <tr>
                   <td style="background-color: #0D9488; border-radius: 8px;">
-                    <a href="https://homigo.in" style="display: inline-block; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #ffffff; text-decoration: none; padding: 13px 28px; letter-spacing: 0.1px;">
-                      Learn more about Homigo
+                    <a href="https://homizy.in" style="display: inline-block; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 14px; font-weight: 600; color: #ffffff; text-decoration: none; padding: 13px 28px; letter-spacing: 0.1px;">
+                      Learn more about Homizy
                     </a>
                   </td>
                 </tr>
@@ -189,10 +189,10 @@ function getUserEmailTemplate(entry: WaitlistEntry, firstName: string): string {
           <tr>
             <td style="padding: 24px 48px; background-color: #f9fafb; border-top: 1px solid #e5e7eb;">
               <p style="margin: 0 0 6px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 13px; color: #6b7280; line-height: 1.6;">
-                Questions? Email us at <a href="mailto:hello@homigo.in" style="color: #0D9488; text-decoration: none; font-weight: 500;">hello@homigo.in</a>
+                Questions? Email us at <a href="mailto:hello@homizy.in" style="color: #0D9488; text-decoration: none; font-weight: 500;">hello@homizy.in</a>
               </p>
               <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 12px; color: #9ca3af;">
-                &copy; ${new Date().getFullYear()} Homigo &bull; India's AI-powered home services platform
+                &copy; ${new Date().getFullYear()} Homizy &bull; India's AI-powered home services platform
               </p>
             </td>
           </tr>
@@ -260,7 +260,7 @@ function getAdminEmailTemplate(entry: WaitlistEntry): string {
 <body style="margin: 0; padding: 0; background-color: #f4f6f8; -webkit-font-smoothing: antialiased;">
 
   <div style="display: none; max-height: 0; overflow: hidden; color: transparent;">
-    ${entry.name} just joined the Homigo waitlist as a ${badgeLabel} from ${entry.city}.
+    ${entry.name} just joined the Homizy waitlist as a ${badgeLabel} from ${entry.city}.
     &nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;&nbsp;&zwnj;
   </div>
 
@@ -281,7 +281,7 @@ function getAdminEmailTemplate(entry: WaitlistEntry): string {
               <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
                 <tr>
                   <td>
-                    <p style="margin: 0 0 6px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 11px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px;">Homigo &bull; Waitlist</p>
+                    <p style="margin: 0 0 6px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 11px; font-weight: 700; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px;">Homizy &bull; Waitlist</p>
                     <h1 style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 22px; font-weight: 700; color: #111827; letter-spacing: -0.3px;">New signup</h1>
                   </td>
                   <td align="right" style="vertical-align: top;">
@@ -322,7 +322,7 @@ function getAdminEmailTemplate(entry: WaitlistEntry): string {
           <tr>
             <td style="padding: 20px 40px; background-color: #f9fafb; border-top: 1px solid #e5e7eb;">
               <p style="margin: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif; font-size: 12px; color: #9ca3af;">
-                This is an automated notification from Homigo &bull; &copy; ${new Date().getFullYear()} Homigo
+                This is an automated notification from Homizy &bull; &copy; ${new Date().getFullYear()} Homizy
               </p>
             </td>
           </tr>

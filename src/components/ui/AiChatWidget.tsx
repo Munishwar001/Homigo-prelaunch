@@ -33,7 +33,7 @@ function renderContent(text: string): ReactNode[] {
 
 const WELCOME: Message = {
   role:        "assistant",
-  content:     "Namaste! 👋 I'm Homigo's assistant.\n\nAsk me anything about our AI-powered home services platform — how it works, what we offer, pricing, or how to join early.",
+  content:     "Namaste! 👋 I'm Homizy's assistant.\n\nAsk me anything about our AI-powered home services platform — how it works, what we offer, pricing, or how to join early.",
   time:        nowTime(),
   suggestions: ["How does it work? 🔄", "Services we offer 🔧", "Join waitlist 🚀"],
   cta:         null,
@@ -304,7 +304,7 @@ export function AiChatWidget() {
 
             <div>
               <div className="flex items-center gap-2">
-                <p className="text-white font-bold text-sm tracking-tight">Homigo AI</p>
+                <p className="text-white font-bold text-sm tracking-tight">Homizy AI</p>
                 <span
                   className="text-[9px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wider"
                   style={{
@@ -401,7 +401,7 @@ export function AiChatWidget() {
               e.target.style.borderColor = "#e5e7eb";
               e.target.style.boxShadow   = "none";
             }}
-            placeholder="Ask about Homigo…"
+            placeholder="Ask about Homizy…"
             autoComplete="off"
             className="flex-1 text-sm bg-gray-50 border border-gray-200 rounded-full px-4 py-2.5 outline-none text-[#1C1C1E] placeholder-gray-400 transition-all duration-200"
           />
@@ -454,7 +454,7 @@ export function AiChatWidget() {
               }}
             >
               <Sparkles size={12} className="text-primary" />
-              <span className="text-sm font-semibold text-gray-700">Ask Homigo AI</span>
+              <span className="text-sm font-semibold text-gray-700">Ask Homizy AI</span>
             </div>
             {/* Arrow */}
             <div className="flex justify-end pr-5">
@@ -491,7 +491,7 @@ export function AiChatWidget() {
               ? "0 8px 24px rgba(13,148,136,0.4)"
               : "0 10px 36px rgba(13,148,136,0.55), 0 3px 10px rgba(0,0,0,0.15)",
           }}
-          aria-label={open ? "Close assistant" : "Open Homigo assistant"}
+          aria-label={open ? "Close assistant" : "Open Homizy assistant"}
         >
           <div
             style={{

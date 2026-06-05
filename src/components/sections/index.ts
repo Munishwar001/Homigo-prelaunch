@@ -2,5 +2,5 @@ export { Hero }       from "./Hero";
 export { Problem }    from "./Problem";
 export { HowItWorks } from "./HowItWorks";
 export { Services }   from "./Services";
-export { WhyHomigo }  from "./WhyHomigo";
+export { WhyHomizy }  from "./WhyHomizy";
 export { Waitlist }   from "./Waitlist";

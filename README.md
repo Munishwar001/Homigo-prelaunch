@@ -1,6 +1,6 @@
-# Homigo Pre-Launch App
+# Homizy Pre-Launch App
 
-This is a [Next.js](https://nextjs.org) project for Homigo's pre-launch waitlist campaign.
+This is a [Next.js](https://nextjs.org) project for Homizy's pre-launch waitlist campaign.
 
 ## Features
 

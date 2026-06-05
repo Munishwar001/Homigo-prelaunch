@@ -10,7 +10,7 @@ import { WAITLIST_COUNT } from "@/constants";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
-const STORAGE_KEY = "homigo_popup_seen";
+const STORAGE_KEY = "homizy_popup_seen";
 
 const INITIAL: WaitlistFormData = { name: "", email: "", phone: "", city: "", role: "customer" };
 
@@ -114,7 +114,7 @@ export function WaitlistPopup() {
             className="relative z-10 text-white text-[22px] font-bold leading-tight mb-1"
             style={{ fontFamily: "var(--font-fraunces)" }}
           >
-            Get Early Access to Homigo
+            Get Early Access to Homizy
           </h2>
           <p className="relative z-10 text-white/75 text-[13px]">
             Join <span className="text-white font-semibold">{WAITLIST_COUNT} early members</span> — be first when we launch in your city.
@@ -156,7 +156,7 @@ function SuccessView({ city }: { city: string }) {
           You&apos;re on the list! 🎉
         </h3>
         <p className="text-[#6B7280] text-sm leading-relaxed">
-          We&apos;ll reach out the moment Homigo goes live in{" "}
+          We&apos;ll reach out the moment Homizy goes live in{" "}
           <span className="font-semibold text-primary">{city || "your city"}</span>.
         </p>
       </div>
