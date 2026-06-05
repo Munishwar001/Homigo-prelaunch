@@ -23,15 +23,10 @@ function nowTime() {
   });
 }
 
-/** Parses **bold** markers into <strong> nodes. */
 function renderContent(text: string): ReactNode[] {
   return text.split(/(\*\*[^*]+\*\*)/g).map((part, i) => {
     if (part.startsWith("**") && part.endsWith("**")) {
-      return (
-        <strong key={i} className="font-semibold">
-          {part.slice(2, -2)}
-        </strong>
-      );
+      return <strong key={i} className="font-semibold">{part.slice(2, -2)}</strong>;
     }
     return <span key={i}>{part}</span>;
   });
@@ -56,10 +51,7 @@ function TypingDots() {
         <span
           key={i}
           className="w-2 h-2 rounded-full bg-primary"
-          style={{
-            animation:      "bounce 1.2s ease-in-out infinite",
-            animationDelay: `${i * 0.18}s`,
-          }}
+          style={{ animation: "bounce 1.2s ease-in-out infinite", animationDelay: `${i * 0.18}s` }}
         />
       ))}
     </div>
@@ -80,7 +72,6 @@ function Bubble({ msg, isNew, onChipClick, onCta }: BubbleProps) {
     <div className={`flex flex-col gap-1 ${isNew ? "chat-msg-in" : ""}`}>
       <div className={`flex items-end gap-2 ${isUser ? "flex-row-reverse" : "flex-row"}`}>
 
-        {/* Bot avatar */}
         {!isUser && (
           <div
             className="w-7 h-7 rounded-full shrink-0 flex items-center justify-center"
@@ -91,7 +82,6 @@ function Bubble({ msg, isNew, onChipClick, onCta }: BubbleProps) {
         )}
 
         <div className={`flex flex-col gap-1 ${isUser ? "items-end" : "items-start"} max-w-[78%]`}>
-          {/* Bubble */}
           <div
             className={`px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed whitespace-pre-line ${
               isUser
@@ -102,12 +92,9 @@ function Bubble({ msg, isNew, onChipClick, onCta }: BubbleProps) {
           >
             {renderContent(msg.content)}
           </div>
-
-          {/* Timestamp */}
           <span className="text-[10px] text-gray-400 px-1">{msg.time}</span>
         </div>
 
-        {/* User avatar */}
         {isUser && (
           <div className="w-7 h-7 rounded-full shrink-0 flex items-center justify-center bg-gray-200 text-[10px] font-semibold text-gray-500">
             You
@@ -115,12 +102,8 @@ function Bubble({ msg, isNew, onChipClick, onCta }: BubbleProps) {
         )}
       </div>
 
-      {/* Suggestion chips */}
       {!isUser && msg.suggestions.length > 0 && (
-        <div
-          className="pl-9 flex flex-wrap gap-1.5 chip-fade-in"
-          style={{ animationDelay: "0.15s", opacity: 0 }}
-        >
+        <div className="pl-9 flex flex-wrap gap-1.5 chip-fade-in" style={{ animationDelay: "0.15s", opacity: 0 }}>
           {msg.suggestions.map((chip) => (
             <button
               key={chip}
@@ -133,12 +116,8 @@ function Bubble({ msg, isNew, onChipClick, onCta }: BubbleProps) {
         </div>
       )}
 
-      {/* CTA button */}
       {!isUser && msg.cta && (
-        <div
-          className="pl-9 chip-fade-in"
-          style={{ animationDelay: "0.25s", opacity: 0 }}
-        >
+        <div className="pl-9 chip-fade-in" style={{ animationDelay: "0.25s", opacity: 0 }}>
           <button
             onClick={() => onCta(msg.cta!.section)}
             className="inline-flex items-center gap-1.5 text-[11px] px-3 py-1.5 rounded-full font-semibold text-white transition-all duration-150 hover:brightness-110 hover:scale-[1.03]"
@@ -195,10 +174,7 @@ export function AiChatWidget() {
       role: "user", content: trimmed, time: nowTime(), suggestions: [], cta: null,
     };
 
-    setMessages(prev => {
-      setNewIdx(prev.length);
-      return [...prev, userMsg];
-    });
+    setMessages(prev => { setNewIdx(prev.length); return [...prev, userMsg]; });
     setInput("");
     setLoading(true);
 
@@ -223,10 +199,7 @@ export function AiChatWidget() {
         cta:         data.cta ?? null,
       };
 
-      setMessages(prev => {
-        setNewIdx(prev.length);
-        return [...prev, aiMsg];
-      });
+      setMessages(prev => { setNewIdx(prev.length); return [...prev, aiMsg]; });
     } catch {
       setMessages(prev => {
         setNewIdx(prev.length);
@@ -244,7 +217,7 @@ export function AiChatWidget() {
   return (
     <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-3">
 
-      {/* ── Chat panel (kept mounted for CSS transition) ─────────────────── */}
+      {/* ── Chat panel ───────────────────────────────────────────────────── */}
       <div
         className="rounded-2xl overflow-hidden flex flex-col"
         style={{
@@ -281,13 +254,16 @@ export function AiChatWidget() {
             </div>
           </div>
 
-          <button
-            onClick={() => setOpen(false)}
-            className="relative z-10 w-7 h-7 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors"
-            aria-label="Close chat"
-          >
-            <X size={14} className="text-white" />
-          </button>
+          {/* Close */}
+          <div className="relative z-10">
+            <button
+              onClick={() => setOpen(false)}
+              className="w-7 h-7 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center transition-colors"
+              aria-label="Close chat"
+            >
+              <X size={14} className="text-white" />
+            </button>
+          </div>
         </div>
 
         {/* Messages */}
@@ -371,16 +347,12 @@ export function AiChatWidget() {
           style={{ background: "linear-gradient(135deg, #0D9488, #0b7c70)" }}
           aria-label={open ? "Close assistant" : "Open Homigo assistant"}
         >
-          <div
-            style={{
-              transition: "transform 0.2s ease",
-              transform:  open ? "rotate(90deg)" : "rotate(0deg)",
-            }}
-          >
+          <div style={{ transition: "transform 0.2s ease", transform: open ? "rotate(90deg)" : "rotate(0deg)" }}>
             {open ? <X size={22} /> : <MessageCircle size={22} />}
           </div>
         </button>
       </div>
+
     </div>
   );
 }

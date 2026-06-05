@@ -1,6 +1,7 @@
 import { WaitlistEntry } from "./types";
 import { addToGoogleSheets, checkDuplicateEmail } from "./googleSheets";
 import { rateLimiter } from "./rateLimiter";
+import { sendUserConfirmationEmail, sendAdminNotificationEmail } from "./email";
 
 type WaitlistInput = Omit<WaitlistEntry, "id" | "createdAt">;
 
@@ -44,6 +45,15 @@ export async function addEntry(input: WaitlistInput): Promise<WaitlistEntry> {
     // Re-throw to fail the request if Google Sheets fails
     throw error;
   }
+
+  // Send emails (non-blocking - don't fail if email fails)
+  Promise.all([
+    sendUserConfirmationEmail(entry),
+    sendAdminNotificationEmail(entry),
+  ]).catch((error) => {
+    console.error("⚠️  Email sending failed (non-critical):", error);
+    // Don't throw - email failure shouldn't block the signup
+  });
 
   return entry;
 }
